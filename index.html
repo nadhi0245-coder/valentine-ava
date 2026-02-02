@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Ava ❤️</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   body {
     margin: 0;
@@ -18,14 +18,13 @@
     transition: all 1.5s ease;
   }
 
-  /* THE LETTER */
+  /* PORTRAIT RECTANGLE LETTER */
   .letter {
     background: #fdfaf5;
-    width: 90%;
-    max-width: 1000px;
-    height: 85vh;
+    width: 450px; 
+    height: 650px; 
     padding: 40px;
-    box-shadow: 10px 10px 50px rgba(0,0,0,0.2);
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.2);
     position: relative;
     border: 1px solid #d4c5b3;
     display: flex;
@@ -35,19 +34,21 @@
     z-index: 10;
   }
 
-  /* LILY CORNER DECORATIONS */
-  .corner {
+  /* FLORAL BACKGROUND WRAP (Behind the letter) */
+  .floral-bg {
     position: absolute;
-    width: 120px;
-    height: 120px;
-    opacity: 0.8;
+    width: 750px;
+    height: 950px;
+    background-image: url('https://www.transparentpng.com/download/floral/frame-floral-border-background-png-3.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
+    z-index: 5;
+    pointer-events: none;
   }
-  .tl { top: 10px; left: 10px; }
-  .tr { top: 10px; right: 10px; transform: scaleX(-1); }
-  .bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
-  .br { bottom: 10px; right: 10px; transform: scale(-1); }
 
-  /* WAX STAMP */
+  /* STAMPS */
   .wax-stamp {
     width: 90px;
     height: 90px;
@@ -55,7 +56,7 @@
     border-radius: 50%;
     position: absolute;
     bottom: 30px;
-    right: 50px;
+    right: 40px;
     box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
@@ -67,72 +68,79 @@
     border: 2px solid #a00000;
   }
 
+  .edmonton-postmark {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 100px;
+    height: 100px;
+    border: 1px dashed #a39684;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #a39684;
+    font-size: 10px;
+    text-transform: uppercase;
+    transform: rotate(15deg);
+    opacity: 0.7;
+    line-height: 1.2;
+    font-weight: bold;
+  }
+
   .scene { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
   .scene.active { display: flex; }
 
-  h1 { font-size: 3.2rem; color: #444; margin-bottom: 40px; font-style: italic; }
+  h1 { font-size: 2.2rem; color: #444; margin-bottom: 30px; font-style: italic; line-height: 1.2; }
 
   /* BUTTONS */
   #yes, #yesAgain {
     background: #c41e3a;
     color: white;
-    padding: 25px 90px;
-    font-size: 2.2rem;
+    padding: 20px 70px;
+    font-size: 1.8rem;
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: transform 0.2s;
   }
-  #yes:hover, #yesAgain:hover { transform: scale(1.05); }
-
-  #no {
-    background: none;
-    border: none;
-    color: #bbb;
-    margin-top: 30px;
-    cursor: pointer;
-    text-decoration: underline;
-  }
+  #no { background: none; border: none; color: #bbb; margin-top: 25px; cursor: pointer; text-decoration: underline; font-size: 0.8rem; }
 
   /* CAT ANIMATION */
   .cats-box { 
     position: relative; 
     width: 100%; 
-    height: 150px; 
+    height: 120px; 
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .cat-walking { position: absolute; font-size: 80px; top: 0; }
+  .cat-walking { position: absolute; font-size: 70px; top: 0; }
   .left { left: 0; animation: meetLeft 5s forwards; }
   .right { right: 0; animation: meetRight 5s forwards; }
-
-  @keyframes meetLeft { to { left: 40%; opacity: 0; } }
-  @keyframes meetRight { to { right: 40%; opacity: 0; } }
+  @keyframes meetLeft { to { left: 35%; opacity: 0; } }
+  @keyframes meetRight { to { right: 35%; opacity: 0; } }
 
   .kiss-cats {
-    font-size: 100px;
+    font-size: 90px;
     opacity: 0;
-    animation: showKiss 0.5s forwards;
-    animation-delay: 5s;
+    animation: showKiss 0.5s forwards 5s;
   }
   @keyframes showKiss { to { opacity: 1; } }
 
-  /* FALLING LILIES */
+  /* LILY FALLING ANIMATION */
   .falling-flower {
     position: absolute;
     top: -50px;
-    font-size: 30px;
+    width: 30px;
+    height: 30px;
     pointer-events: none;
     animation: fall linear infinite;
     z-index: 100;
   }
-  @keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
-  }
+  @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-  /* NO SCENE: STORM */
   .stormy-bg {
     position: fixed;
     inset: 0;
@@ -144,15 +152,21 @@
   }
 
   iframe { display: none; }
+  .shake-anim { animation: shake 0.5s; }
+  @keyframes shake {
+    0% { transform: translate(1px, 1px); }
+    20% { transform: translate(-3px, 0px); }
+    40% { transform: translate(3px, 2px); }
+    100% { transform: translate(0px, 0px); }
+  }
 </style>
 </head>
 <body>
 
+<div class="floral-bg"></div>
+
 <div class="letter" id="letterBody">
-  <div class="corner tl">🌸</div>
-  <div class="corner tr">🌸</div>
-  <div class="corner bl">🌸</div>
-  <div class="corner br">🌸</div>
+  <div class="edmonton-postmark">Edmonton<br>Feb 2026<br>★★★</div>
 
   <div class="scene active" id="step1">
     <h1>Dear Ava,<br>Will you be my Valentine?</h1>
@@ -166,7 +180,7 @@
   </div>
 
   <div class="scene" id="yesFinal">
-    <h1 style="font-size: 3.5rem;">I love you baby ❤️</h1>
+    <h1 style="font-size: 2.8rem;">I love you baby ❤️</h1>
     <div class="cats-box">
       <div class="cat-walking left">🐱</div>
       <div class="cat-walking right">🐱</div>
@@ -196,14 +210,8 @@
   document.getElementById("yesAgain").onclick = () => {
     document.getElementById("step2").classList.remove("active");
     document.getElementById("yesFinal").classList.add("active");
-    
-    // Play Ivy
     musicBox.innerHTML = `<iframe src="${ivyMusic}" allow="autoplay"></iframe>`;
-    
-    // Shake screen effect
     document.getElementById("letterBody").classList.add("shake-anim");
-    
-    // Start falling flowers (Lily icons)
     setInterval(createFallingFlower, 300);
   };
 
@@ -213,26 +221,15 @@
   };
 
   function createFallingFlower() {
-    const flowers = ["🌸", "💮", "🤍"];
+    const lilySvg = `<svg viewBox="0 0 512 512" fill="white"><path d="M256 0c-35.3 0-64 28.7-64 64v128h128V64c0-35.3-28.7-64-64-64zm-96 256H64c-35.3 0-64 28.7-64 64s28.7 64 64 64h96V256zm288 0h-96v128h96c35.3 0 64-28.7 64-64s-28.7-64-64-64zM160 416H64c-17.7 0-32 14.3-32 32s14.3 32 32 32h96V416zm288 0h-96v64h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></svg>`;
     const flower = document.createElement("div");
     flower.className = "falling-flower";
-    flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+    flower.innerHTML = lilySvg;
     flower.style.left = Math.random() * 100 + "vw";
     flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
     document.body.appendChild(flower);
     setTimeout(() => flower.remove(), 5000);
   }
 </script>
-
-<style>
-  .shake-anim { animation: shake 0.5s; }
-  @keyframes shake {
-    0% { transform: translate(1px, 1px); }
-    20% { transform: translate(-3px, 0px); }
-    40% { transform: translate(3px, 2px); }
-    100% { transform: translate(0px, 0px); }
-  }
-</style>
-
 </body>
 </html>
