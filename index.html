@@ -17,11 +17,11 @@
     overflow: hidden;
   }
 
-  /* FIXED LETTER: Proper Portrait Rectangle */
+  /* CLASSIC RECTANGLE LETTER */
   .letter {
     background: #fdfaf5;
-    width: 450px; /* Classic letter width */
-    height: 650px; /* Classic letter height */
+    width: 450px; 
+    height: 650px; 
     padding: 40px;
     box-shadow: 15px 15px 40px rgba(0,0,0,0.2);
     position: relative;
@@ -33,11 +33,11 @@
     z-index: 10;
   }
 
-  /* FLORAL BACKGROUND WRAP (BEHIND LETTER) */
+  /* FLORAL WRAP BEHIND LETTER */
   .floral-bg {
     position: absolute;
-    width: 650px; /* Bigger than the letter */
-    height: 850px;
+    width: 700px;
+    height: 900px;
     background-image: url('https://www.transparentpng.com/download/floral/frame-floral-border-background-png-3.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -47,7 +47,7 @@
     pointer-events: none;
   }
 
-  /* STAMPS */
+  /* RED WAX STAMP */
   .wax-stamp {
     width: 80px;
     height: 80px;
@@ -64,8 +64,10 @@
     color: rgba(255,255,255,0.2);
     transform: rotate(-10deg);
     z-index: 20;
+    font-weight: bold;
   }
 
+  /* EDMONTON POSTMARK */
   .edmonton-postmark {
     position: absolute;
     top: 40px;
@@ -83,8 +85,8 @@
     text-transform: uppercase;
     transform: rotate(15deg);
     opacity: 0.7;
-    line-height: 1.2;
     font-weight: bold;
+    line-height: 1.2;
   }
 
   .scene { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
@@ -92,32 +94,29 @@
 
   h1 { font-size: 2.2rem; color: #444; margin-bottom: 30px; line-height: 1.2; }
 
-  /* BUTTONS */
+  /* BUTTONS (Yes is 4x size) */
   #yes, #yesAgain {
     background: #c41e3a;
     color: white;
-    padding: 20px 60px;
-    font-size: 1.8rem;
+    padding: 25px 70px;
+    font-size: 2rem;
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: 0.3s;
   }
-  
-  #no { background: none; border: none; color: #bbb; text-decoration: underline; font-size: 0.8rem; margin-top: 20px; cursor: pointer; }
+  #no { background: none; border: none; color: #bbb; text-decoration: underline; font-size: 0.8rem; margin-top: 25px; cursor: pointer; }
 
-  /* ORIGINAL CATS (EMOJIS) MEETING IN MIDDLE */
+  /* ORIGINAL CAT EMOJIS */
   .cats-container {
     position: relative;
     width: 100%;
-    height: 120px;
+    height: 100px;
     margin-top: 20px;
   }
   .cat {
     position: absolute;
     font-size: 70px;
     top: 0;
-    transition: all 5s linear;
   }
   .left { left: 0; animation: meetLeft 5s forwards; }
   .right { right: 0; animation: meetRight 5s forwards; }
@@ -128,25 +127,31 @@
   .heart-pop {
     position: absolute;
     left: 50%;
-    top: -20px;
+    top: -10px;
     transform: translateX(-50%);
     font-size: 40px;
     opacity: 0;
     animation: fadeIn 1s forwards 5s;
   }
 
-  @keyframes fadeIn { to { opacity: 1; } }
-
-  /* FALLING LILIES */
-  .lily {
+  /* FALLING LILIES (Using actual Lily Images) */
+  .lily-fall {
     position: absolute;
-    top: -50px;
-    font-size: 30px;
+    top: -100px;
+    width: 50px;
+    height: 50px;
+    background-image: url('https://www.transparentpng.com/download/lily/white-lily-transparent-background-4.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     pointer-events: none;
     animation: fall linear infinite;
     z-index: 100;
   }
-  @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
 
   .storm-screen {
     position: fixed;
@@ -166,7 +171,7 @@
 <div class="floral-bg"></div>
 
 <div class="letter" id="letterBody">
-  <div class="edmonton-postmark">Edmonton<br>Feb 2026<br>Postage Paid</div>
+  <div class="edmonton-postmark">Edmonton<br>Feb 2026<br>★★★</div>
   
   <div class="scene active" id="step1">
     <h1>Dear Ava,<br>Will you be my Valentine?</h1>
@@ -212,11 +217,10 @@
     document.getElementById("yesFinal").classList.add("active");
     musicBox.innerHTML = `<iframe src="${ivy}" allow="autoplay"></iframe>`;
     
-    // Falling flowers
+    // Start falling LILIES
     setInterval(() => {
       const lily = document.createElement("div");
-      lily.className = "lily";
-      lily.innerHTML = "⚜️"; // Lily Symbol
+      lily.className = "lily-fall";
       lily.style.left = Math.random() * 100 + "vw";
       lily.style.animationDuration = (Math.random() * 3 + 2) + "s";
       document.body.appendChild(lily);
@@ -231,3 +235,4 @@
 </script>
 </body>
 </html>
+
