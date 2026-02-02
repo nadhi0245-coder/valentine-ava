@@ -4,165 +4,141 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Ava ❤️</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   body {
     margin: 0;
     height: 100vh;
     font-family: 'Playfair Display', serif;
-    background: #e0d8cc; 
+    background: #dcd3c1; 
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
   }
 
-  /* TRUE LETTER SHAPE: Vertical Rectangle */
+  /* FIXED LETTER: Proper Portrait Rectangle */
   .letter {
     background: #fdfaf5;
-    width: 60%; /* Narrower for portrait look */
-    max-width: 550px;
-    height: 85vh; /* Taller */
-    padding: 60px 40px;
-    box-shadow: 20px 20px 60px rgba(0,0,0,0.2);
+    width: 450px; /* Classic letter width */
+    height: 650px; /* Classic letter height */
+    padding: 40px;
+    box-shadow: 15px 15px 40px rgba(0,0,0,0.2);
     position: relative;
     border: 1px solid #d4c5b3;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     z-index: 10;
   }
 
-  /* BIG FLORAL WRAP - Improved scaling */
-  .floral-wrap {
+  /* FLORAL BACKGROUND WRAP (BEHIND LETTER) */
+  .floral-bg {
     position: absolute;
-    inset: -30px;
-    border: 60px solid transparent;
-    border-image: url('https://www.transparentpng.com/download/floral/frame-floral-border-background-png-3.png') 15% stretch;
-    pointer-events: none;
-    opacity: 0.8;
+    width: 650px; /* Bigger than the letter */
+    height: 850px;
+    background-image: url('https://www.transparentpng.com/download/floral/frame-floral-border-background-png-3.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6;
     z-index: 5;
+    pointer-events: none;
   }
 
   /* STAMPS */
   .wax-stamp {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
     background: radial-gradient(#c41e3a, #8b0000);
     border-radius: 50%;
     position: absolute;
-    bottom: 40px;
-    right: 40px;
-    box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+    bottom: 30px;
+    right: 30px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 45px;
-    color: rgba(255,255,255,0.3);
-    transform: rotate(-15deg);
+    font-size: 40px;
+    color: rgba(255,255,255,0.2);
+    transform: rotate(-10deg);
     z-index: 20;
-    border: 2px solid #a00000;
   }
 
-  .postmark {
+  .edmonton-postmark {
     position: absolute;
-    top: 50px;
-    right: 40px;
-    width: 110px;
-    height: 110px;
-    border: 1px dashed #8b7d6b;
+    top: 40px;
+    right: 30px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #a39684;
     border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #8b7d6b;
-    font-size: 11px;
+    color: #a39684;
+    font-size: 10px;
     text-transform: uppercase;
     transform: rotate(15deg);
-    opacity: 0.5;
+    opacity: 0.7;
+    line-height: 1.2;
+    font-weight: bold;
   }
 
   .scene { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
   .scene.active { display: flex; }
 
-  h1 { font-size: 2.5rem; color: #444; margin-bottom: 20px; font-style: italic; }
+  h1 { font-size: 2.2rem; color: #444; margin-bottom: 30px; line-height: 1.2; }
 
-  /* YES 4X BIGGER THAN NO */
+  /* BUTTONS */
   #yes, #yesAgain {
     background: #c41e3a;
     color: white;
-    padding: 30px 100px;
-    font-size: 2.2rem;
+    padding: 20px 60px;
+    font-size: 1.8rem;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
   }
+  
+  #no { background: none; border: none; color: #bbb; text-decoration: underline; font-size: 0.8rem; margin-top: 20px; cursor: pointer; }
 
-  #no { background: none; border: none; color: #bbb; font-size: 0.7rem; text-decoration: underline; cursor: pointer; }
-
-  /* CSS DRAWN CATS - Guaranteed to show */
-  .cats-box { 
-    position: relative; 
-    width: 100%; 
-    height: 100px; 
+  /* ORIGINAL CATS (EMOJIS) MEETING IN MIDDLE */
+  .cats-container {
+    position: relative;
+    width: 100%;
+    height: 120px;
     margin-top: 20px;
   }
-
   .cat {
     position: absolute;
-    width: 60px;
-    height: 45px;
-    background: #555; /* Cat Body */
-    border-radius: 50% 50% 20% 20%;
+    font-size: 70px;
+    top: 0;
+    transition: all 5s linear;
   }
+  .left { left: 0; animation: meetLeft 5s forwards; }
+  .right { right: 0; animation: meetRight 5s forwards; }
 
-  /* Cat Ears */
-  .cat::before {
-    content: "▲ ▲";
-    position: absolute;
-    top: -15px;
-    left: 5px;
-    font-size: 20px;
-    color: #555;
-    word-spacing: 10px;
-  }
+  @keyframes meetLeft { to { left: 35%; } }
+  @keyframes meetRight { to { right: 35%; } }
 
-  /* Cat Tail */
-  .cat::after {
-    content: "";
-    position: absolute;
-    right: -5px;
-    bottom: 0;
-    width: 15px;
-    height: 25px;
-    border: 5px solid #555;
-    border-left: none;
-    border-bottom: none;
-    border-radius: 0 20px 0 0;
-  }
-
-  .left-cat { left: 0; animation: meetLeft 5s forwards; }
-  .right-cat { right: 0; animation: meetRight 5s forwards; transform: scaleX(-1); }
-
-  @keyframes meetLeft { to { left: 38%; } }
-  @keyframes meetRight { to { right: 38%; } }
-
-  .kiss-heart {
+  .heart-pop {
     position: absolute;
     left: 50%;
-    top: -30px;
+    top: -20px;
     transform: translateX(-50%);
     font-size: 40px;
     opacity: 0;
-    animation: pop 0.5s forwards 5s;
+    animation: fadeIn 1s forwards 5s;
   }
-  @keyframes pop { to { opacity: 1; transform: translateX(-50%) scale(1.3); } }
+
+  @keyframes fadeIn { to { opacity: 1; } }
 
   /* FALLING LILIES */
-  .falling-lily {
+  .lily {
     position: absolute;
     top: -50px;
     font-size: 30px;
@@ -172,10 +148,10 @@
   }
   @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-  .stormy-bg {
+  .storm-screen {
     position: fixed;
     inset: 0;
-    background: #000;
+    background: black;
     z-index: 1000;
     display: none;
     align-items: center;
@@ -187,11 +163,11 @@
 </head>
 <body>
 
-<div class="floral-wrap"></div>
+<div class="floral-bg"></div>
 
 <div class="letter" id="letterBody">
-  <div class="postmark">EDMONTON<br>FEB 2026<br>VIA AIR MAIL</div>
-
+  <div class="edmonton-postmark">Edmonton<br>Feb 2026<br>Postage Paid</div>
+  
   <div class="scene active" id="step1">
     <h1>Dear Ava,<br>Will you be my Valentine?</h1>
     <button id="yes">YES</button>
@@ -199,23 +175,23 @@
   </div>
 
   <div class="scene" id="step2">
-    <h1>Wait...<br>Are you 100% sure? 🥰</h1>
+    <h1>Are you 100% sure? 🥰</h1>
     <button id="yesAgain">YES, I AM SURE!</button>
   </div>
 
   <div class="scene" id="yesFinal">
-    <h1 style="font-size: 2.8rem;">I love you baby ❤️</h1>
-    <div class="cats-box">
-      <div class="cat left-cat"></div>
-      <div class="cat right-cat"></div>
-      <div class="kiss-heart">❤️</div>
+    <h1>I love you baby ❤️</h1>
+    <div class="cats-container">
+      <div class="cat left">🐱</div>
+      <div class="cat right">🐱</div>
+      <div class="heart-pop">❤️</div>
     </div>
   </div>
 
   <div class="wax-stamp">A</div>
 </div>
 
-<div class="stormy-bg" id="stormContainer">
+<div class="storm-screen" id="storm">
   <h1 style="color: #222; font-size: 10rem;">⛈️</h1>
 </div>
 
@@ -223,8 +199,8 @@
 
 <script>
   const musicBox = document.getElementById("music-box");
-  const ivyMusic = "https://www.youtube.com/embed/MAJPYBN7LRU?autoplay=1";
-  const stormSound = "https://www.youtube.com/embed/mPZkdNF60m0?autoplay=1";
+  const ivy = "https://www.youtube.com/embed/MAJPYBN7LRU?autoplay=1";
+  const storm = "https://www.youtube.com/embed/mPZkdNF60m0?autoplay=1";
 
   document.getElementById("yes").onclick = () => {
     document.getElementById("step1").classList.remove("active");
@@ -234,43 +210,24 @@
   document.getElementById("yesAgain").onclick = () => {
     document.getElementById("step2").classList.remove("active");
     document.getElementById("yesFinal").classList.add("active");
-    musicBox.innerHTML = `<iframe src="${ivyMusic}" allow="autoplay"></iframe>`;
-    
-    // Shake screen
-    document.getElementById("letterBody").style.animation = "shake 0.5s";
+    musicBox.innerHTML = `<iframe src="${ivy}" allow="autoplay"></iframe>`;
     
     // Falling flowers
-    setInterval(createFlower, 300);
+    setInterval(() => {
+      const lily = document.createElement("div");
+      lily.className = "lily";
+      lily.innerHTML = "⚜️"; // Lily Symbol
+      lily.style.left = Math.random() * 100 + "vw";
+      lily.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(lily);
+      setTimeout(() => lily.remove(), 5000);
+    }, 300);
   };
 
   document.getElementById("no").onclick = () => {
-    document.getElementById("stormContainer").style.display = "flex";
-    musicBox.innerHTML = `<iframe src="${stormSound}" allow="autoplay"></iframe>`;
+    document.getElementById("storm").style.display = "flex";
+    musicBox.innerHTML = `<iframe src="${storm}" allow="autoplay"></iframe>`;
   };
-
-  function createFlower() {
-    const flowers = ["🌸", "⚜️", "🤍", "💮"];
-    const f = document.createElement("div");
-    f.className = "falling-lily";
-    f.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
-    f.style.left = Math.random() * 100 + "vw";
-    f.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    document.body.appendChild(f);
-    setTimeout(() => f.remove(), 5000);
-  }
 </script>
-
-<style>
-  @keyframes shake {
-    0% { transform: translate(2px, 2px); }
-    50% { transform: translate(-2px, -2px); }
-    100% { transform: translate(0, 0); }
-  }
-</style>
 </body>
 </html>
-
-
-
-
-
