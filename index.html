@@ -15,10 +15,9 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: all 1.5s ease;
   }
 
-  /* THE LETTER */
+  /* THE LETTER WITH FLORAL WRAP */
   .letter {
     background: #fdfaf5;
     width: 90%;
@@ -35,19 +34,18 @@
     z-index: 10;
   }
 
-  /* LILY CORNER DECORATIONS */
-  .corner {
+  /* Floral Border Wrap */
+  .letter::after {
+    content: "";
     position: absolute;
-    width: 120px;
-    height: 120px;
-    opacity: 0.8;
+    inset: -15px;
+    border: 30px solid transparent;
+    border-image: url('https://www.transparentpng.com/download/floral/frame-floral-border-background-png-3.png') 100 stretch;
+    pointer-events: none;
+    opacity: 0.7;
   }
-  .tl { top: 10px; left: 10px; }
-  .tr { top: 10px; right: 10px; transform: scaleX(-1); }
-  .bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
-  .br { bottom: 10px; right: 10px; transform: scale(-1); }
 
-  /* WAX STAMP */
+  /* WAX STAMP (RED) */
   .wax-stamp {
     width: 90px;
     height: 90px;
@@ -63,8 +61,29 @@
     font-size: 45px;
     color: rgba(255,255,255,0.3);
     transform: rotate(-15deg);
+    z-index: 20;
+  }
+
+  /* EDMONTON POSTMARK */
+  .postmark {
+    position: absolute;
+    top: 40px;
+    right: 60px;
+    width: 120px;
+    height: 120px;
+    border: 2px double #8b7d6b;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #8b7d6b;
+    font-size: 12px;
     font-weight: bold;
-    border: 2px solid #a00000;
+    text-transform: uppercase;
+    transform: rotate(10deg);
+    opacity: 0.6;
+    pointer-events: none;
   }
 
   .scene { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
@@ -72,8 +91,7 @@
 
   h1 { font-size: 3.2rem; color: #444; margin-bottom: 40px; font-style: italic; }
 
-  /* BUTTONS */
-  #yes, #yesAgain {
+  button {
     background: #c41e3a;
     color: white;
     padding: 25px 90px;
@@ -81,43 +99,57 @@
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: transform 0.2s;
-  }
-  #yes:hover, #yesAgain:hover { transform: scale(1.05); }
-
-  #no {
-    background: none;
-    border: none;
-    color: #bbb;
-    margin-top: 30px;
-    cursor: pointer;
-    text-decoration: underline;
+    font-family: 'Playfair Display', serif;
   }
 
-  /* CAT ANIMATION */
+  #no { background: none; border: none; color: #bbb; font-size: 0.9rem; text-decoration: underline; padding: 10px; margin-top: 20px;}
+
+  /* VECTOR CATS */
   .cats-box { 
     position: relative; 
     width: 100%; 
     height: 150px; 
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: 40px;
   }
-  .cat-walking { position: absolute; font-size: 80px; top: 0; }
-  .left { left: 0; animation: meetLeft 5s forwards; }
-  .right { right: 0; animation: meetRight 5s forwards; }
 
-  @keyframes meetLeft { to { left: 40%; opacity: 0; } }
-  @keyframes meetRight { to { right: 40%; opacity: 0; } }
+  .vector-cat {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    background: #444; /* Dark grey cats */
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  }
 
-  .kiss-cats {
-    font-size: 100px;
+  /* Ears */
+  .vector-cat::before, .vector-cat::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    width: 20px;
+    height: 25px;
+    background: #444;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+  .vector-cat::before { left: 5px; }
+  .vector-cat::after { right: 5px; }
+
+  .left-cat { left: 0; animation: meetLeft 5s forwards; }
+  .right-cat { right: 0; animation: meetRight 5s forwards; }
+
+  @keyframes meetLeft { to { left: 42%; } }
+  @keyframes meetRight { to { right: 42%; } }
+
+  /* Kiss Heart */
+  .kiss-heart {
+    position: absolute;
+    left: 50%;
+    top: -20px;
+    transform: translateX(-50%);
+    font-size: 40px;
     opacity: 0;
-    animation: showKiss 0.5s forwards;
-    animation-delay: 5s;
+    animation: popHeart 0.5s forwards 5s;
   }
-  @keyframes showKiss { to { opacity: 1; } }
+  @keyframes popHeart { to { opacity: 1; transform: translateX(-50%) translateY(-20px) scale(1.2); } }
 
   /* FALLING LILIES */
   .falling-flower {
@@ -128,15 +160,12 @@
     animation: fall linear infinite;
     z-index: 100;
   }
-  @keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
-  }
+  @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-  /* NO SCENE: STORM */
   .stormy-bg {
     position: fixed;
     inset: 0;
-    background: #050505;
+    background: #000;
     z-index: 1000;
     display: none;
     align-items: center;
@@ -149,10 +178,9 @@
 <body>
 
 <div class="letter" id="letterBody">
-  <div class="corner tl">🌸</div>
-  <div class="corner tr">🌸</div>
-  <div class="corner bl">🌸</div>
-  <div class="corner br">🌸</div>
+  <div class="postmark">
+    Edmonton<br>Feb 2026<br>★★★
+  </div>
 
   <div class="scene active" id="step1">
     <h1>Dear Ava,<br>Will you be my Valentine?</h1>
@@ -168,9 +196,9 @@
   <div class="scene" id="yesFinal">
     <h1 style="font-size: 3.5rem;">I love you baby ❤️</h1>
     <div class="cats-box">
-      <div class="cat-walking left">🐱</div>
-      <div class="cat-walking right">🐱</div>
-      <div class="kiss-cats">💏😽</div>
+      <div class="vector-cat left-cat"></div>
+      <div class="vector-cat right-cat"></div>
+      <div class="kiss-heart">❤️</div>
     </div>
   </div>
 
@@ -178,7 +206,7 @@
 </div>
 
 <div class="stormy-bg" id="stormContainer">
-  <h1 style="color: #222; font-size: 8rem;">⛈️</h1>
+  <h1 style="color: #222; font-size: 10rem;">⛈️</h1>
 </div>
 
 <div id="music-box"></div>
@@ -196,14 +224,7 @@
   document.getElementById("yesAgain").onclick = () => {
     document.getElementById("step2").classList.remove("active");
     document.getElementById("yesFinal").classList.add("active");
-    
-    // Play Ivy
     musicBox.innerHTML = `<iframe src="${ivyMusic}" allow="autoplay"></iframe>`;
-    
-    // Shake screen effect
-    document.getElementById("letterBody").classList.add("shake-anim");
-    
-    // Start falling flowers (Lily icons)
     setInterval(createFallingFlower, 300);
   };
 
@@ -213,7 +234,7 @@
   };
 
   function createFallingFlower() {
-    const flowers = ["🌸", "💮", "🤍"];
+    const flowers = ["🌸", "💮", "🤍", "⚜️"];
     const flower = document.createElement("div");
     flower.className = "falling-flower";
     flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
@@ -223,19 +244,9 @@
     setTimeout(() => flower.remove(), 5000);
   }
 </script>
-
-<style>
-  .shake-anim { animation: shake 0.5s; }
-  @keyframes shake {
-    0% { transform: translate(1px, 1px); }
-    20% { transform: translate(-3px, 0px); }
-    40% { transform: translate(3px, 2px); }
-    100% { transform: translate(0px, 0px); }
-  }
-</style>
-
 </body>
 </html>
+
 
 
 
