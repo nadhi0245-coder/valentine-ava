@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>For Ava ❤️</title>
 <style>
   body {
@@ -15,7 +15,19 @@
     justify-content: center;
     overflow: hidden;
     color: white;
-    transition: all 1.5s ease;
+    transition: all 1s ease;
+  }
+
+  /* Flower Border - Positioned for iPhone 12 Pro Max screens */
+  .flower-border {
+    position: fixed;
+    inset: 10px;
+    border: 15px solid transparent;
+    border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text y="35" font-size="35">🌸</text></svg>') 30 round;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 2s;
   }
 
   .scene {
@@ -26,58 +38,57 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    z-index: 5;
   }
 
   .scene.active { display: flex; }
 
-  h1 { font-size: 2.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.1); padding: 20px; }
+  h1 { font-size: 2.2rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.1); padding: 0 30px; line-height: 1.3; }
 
   button {
-    padding: 15px 40px;
-    font-size: 1.3rem;
+    padding: 18px 45px;
+    font-size: 1.4rem;
     border-radius: 50px;
     border: none;
-    margin: 10px;
+    margin: 12px;
     cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    -webkit-tap-highlight-color: transparent; /* Fixes blue flash on iPhone */
   }
-
-  button:hover { transform: scale(1.1); }
 
   #yes, #yesAgain { background: #fff; color: #ff1493; font-weight: bold; }
-  #no { background: #444; color: white; }
+  #no { background: #333; color: #fff; font-size: 1rem; padding: 10px 25px; }
 
-  /* Romantic Hearts Animation */
-  .floating-heart {
-    position: absolute;
-    font-size: 20px;
-    color: white;
-    animation: float 4s linear infinite;
-    opacity: 0;
+  /* Screen Shake Animation */
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    100% { transform: translate(1px, 1px) rotate(0deg); }
   }
 
-  @keyframes float {
-    0% { transform: translateY(100vh) scale(0); opacity: 1; }
-    100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-  }
+  .apply-shake { animation: shake 0.5s; animation-iteration-count: 2; }
 
-  .cats { font-size: 100px; margin: 20px; display: flex; gap: 20px; }
+  .cats { font-size: 80px; margin-top: 20px; }
   
-  /* Storm Effect */
-  .stormy { background: #1a1a1a !important; color: #555 !important; }
+  /* Storm Look */
+  .stormy { background: #0c0c0c !important; color: #444 !important; }
   
-  iframe { display: none; }
+  iframe { display: none; } /* Keeps the music hidden */
 </style>
 </head>
 <body>
 
+<div class="flower-border" id="flowerBorder"></div>
+
 <div class="scene active" id="step1">
   <h1>Ava, will you be my Valentine? 💘</h1>
-  <div>
-    <button id="yes">Yes 💖</button>
-    <button id="no">No 💔</button>
-  </div>
+  <button id="yes">Yes 💖</button>
+  <button id="no">No 💔</button>
 </div>
 
 <div class="scene" id="step2">
@@ -86,22 +97,23 @@
 </div>
 
 <div class="scene" id="yesFinal">
-  <h1>Yay! I love you so much Ava! ❤️</h1>
-  <div class="cats">🐱❤️🐱</div>
+  <h1>I love you so much! ❤️</h1>
+  <div class="cats">🐱🌸🐱</div>
 </div>
 
 <div class="scene" id="noScene">
-  <h1 style="color: #444;">⛈️ It's a dark day...</h1>
+  <h1 style="color: #333;">⛈️<br>It's a dark day...</h1>
 </div>
 
 <div id="music-box"></div>
 
 <script>
   const musicBox = document.getElementById("music-box");
+  const body = document.body;
   
-  // Audio Links
-  const ivyMusic = "https://www.youtube.com/embed/MAJPYBN7LRU?autoplay=1";
-  const stormSound = "https://www.youtube.com/embed/mPZkdNF60m0?autoplay=1";
+  // High-compatibility audio links (Looping enabled)
+  const ivyMusic = "https://www.youtube.com/embed/MAJPYBN7LRU?autoplay=1&loop=1";
+  const stormSound = "https://www.youtube.com/embed/mPZkdNF60m0?autoplay=1&mute=0";
 
   // Flow Logic
   document.getElementById("yes").onclick = () => {
@@ -110,32 +122,32 @@
   };
 
   document.getElementById("yesAgain").onclick = () => {
+    // 1. Shake the screen
+    body.classList.add("apply-shake");
+    
+    // 2. Change Scenes
     document.getElementById("step2").classList.remove("active");
     document.getElementById("yesFinal").classList.add("active");
+    
+    // 3. Show Flowers
+    document.getElementById("flowerBorder").style.opacity = "1";
+    
+    // 4. Play Ivy
     musicBox.innerHTML = `<iframe src="${ivyMusic}" allow="autoplay"></iframe>`;
-    startHearts();
+    
+    // Remove shake after it's done
+    setTimeout(() => body.classList.remove("apply-shake"), 1000);
   };
 
   document.getElementById("no").onclick = () => {
     document.getElementById("step1").classList.remove("active");
     document.getElementById("noScene").classList.add("active");
-    document.body.classList.add("stormy");
+    body.classList.add("stormy");
+    // Play Storm Sound
     musicBox.innerHTML = `<iframe src="${stormSound}" allow="autoplay"></iframe>`;
   };
-
-  // Romance Animation
-  function startHearts() {
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.innerHTML = "❤️";
-      heart.className = "floating-heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 4000);
-    }, 300);
-  }
 </script>
 </body>
 </html>
+
 
