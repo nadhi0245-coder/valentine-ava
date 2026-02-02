@@ -8,157 +8,171 @@
   body {
     margin: 0;
     height: 100vh;
-    font-family: 'Georgia', serif;
-    background: #fdf5e6; /* Old Paper / Letter Color */
+    font-family: 'Playfair Display', serif;
+    background: #e0d8cc; /* Darker paper desk color */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    color: #444;
     transition: all 1.5s ease;
   }
 
-  /* The Letter Theme Container */
-  .letter-container {
-    background: white;
-    padding: 60px;
-    border-radius: 5px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 1px solid #eee;
-    max-width: 600px;
+  /* THE LETTER */
+  .letter {
+    background: #fdfaf5;
+    width: 85%;
+    max-width: 900px;
+    height: 80vh;
+    padding: 50px;
+    box-shadow: 10px 10px 50px rgba(0,0,0,0.2);
     position: relative;
-    z-index: 5;
-  }
-
-  /* Lilies in the corners */
-  .lily {
-    position: absolute;
-    font-size: 50px;
-    opacity: 0;
-    transition: opacity 1s;
-    z-index: 10;
-  }
-  .lily-tl { top: 20px; left: 20px; }
-  .lily-tr { top: 20px; right: 20px; }
-  .lily-bl { bottom: 20px; left: 20px; }
-  .lily-br { bottom: 20px; right: 20px; }
-
-  .scene {
-    position: absolute;
-    inset: 0;
-    display: none;
+    border: 1px solid #d4c5b3;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 10;
+  }
+
+  /* FLOWER BORDER AROUND LETTER */
+  .letter::before {
+    content: "";
+    position: absolute;
+    inset: 15px;
+    border: 2px solid #e5dcd0;
+    pointer-events: none;
+  }
+
+  /* LILY CORNERS (Using high-quality flower images) */
+  .corner-flower {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background-image: url('https://www.transparentpng.com/download/lily/white-lily-transparent-background-4.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 11;
+  }
+  .tl { top: -20px; left: -20px; transform: rotate(-15deg); }
+  .tr { top: -20px; right: -20px; transform: rotate(105deg); }
+  .bl { bottom: -20px; left: -20px; transform: rotate(-75deg); }
+  .br { bottom: -20px; right: -20px; transform: rotate(195deg); }
+
+  /* WAX STAMP */
+  .wax-stamp {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(#c41e3a, #8b0000);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 40px;
+    right: 60px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: rgba(255,255,255,0.2);
+    transform: rotate(-10deg);
+  }
+
+  .scene {
+    display: none;
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
   .scene.active { display: flex; }
 
-  h1 { font-size: 2.2rem; line-height: 1.4; margin-bottom: 40px; }
+  h1 { font-size: 3rem; color: #444; margin-bottom: 50px; }
 
-  /* Buttons */
-  .btn-container { display: flex; align-items: center; gap: 20px; }
-  button {
+  /* BUTTONS */
+  #yes, #yesAgain {
+    background: #c41e3a;
+    color: white;
+    padding: 25px 80px;
+    font-size: 2rem;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     transition: 0.3s;
-    font-family: 'Georgia', serif;
   }
-  #yes, #yesAgain { 
-    background: #ffb6c1; 
-    color: white; 
-    padding: 30px 80px; /* 4x bigger vibe */
-    font-size: 2.5rem; 
-  }
-  #no { 
-    background: #eee; 
-    color: #999; 
-    padding: 10px 20px; 
-    font-size: 0.8rem; 
-  }
-
-  /* Cat Walking Animation (Towards Middle) */
-  .cats-container {
-    position: relative;
-    width: 100%;
-    height: 200px;
+  #no {
+    background: none;
+    border: 1px solid #ccc;
+    color: #999;
+    padding: 8px 15px;
     margin-top: 20px;
+    cursor: pointer;
   }
-  .cat {
+
+  /* FALLING LILIES ANIMATION */
+  .falling-lily {
     position: absolute;
-    font-size: 80px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: -100px;
+    width: 60px;
+    pointer-events: none;
+    animation: fall linear infinite;
+    z-index: 1;
   }
-  .left { left: 5%; animation: walkLeft 6s linear forwards; }
-  .right { right: 5%; animation: walkRight 6s linear forwards; }
-  
-  @keyframes walkLeft { to { left: 42%; } }
-  @keyframes walkRight { to { right: 42%; } }
-
-  .heart {
-    font-size: 60px;
-    margin-top: 10px;
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
-    animation-delay: 6s;
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
   }
 
-  /* Screen Shake */
-  @keyframes shake {
-    0% { transform: translate(1px, 1px); }
-    20% { transform: translate(-3px, 0px); }
-    40% { transform: translate(3px, 2px); }
-    60% { transform: translate(-3px, 1px); }
-    100% { transform: translate(0px, 0px); }
+  /* CAT ANIMATION */
+  .cats-box { position: relative; width: 100%; height: 150px; margin: 30px 0; }
+  .cat { position: absolute; font-size: 80px; top: 0; }
+  .left { left: 0; animation: meetLeft 5s forwards; }
+  .right { right: 0; animation: meetRight 5s forwards; }
+  @keyframes meetLeft { to { left: 42%; } }
+  @keyframes meetRight { to { right: 42%; } }
+
+  /* NO SCENE: STORM BACKGROUND */
+  .stormy-bg {
+    position: fixed;
+    inset: 0;
+    background: black;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
   }
-  .apply-shake { animation: shake 0.5s infinite; }
-
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-  /* Storm Background */
-  .stormy { background: #1a1a1a !important; color: #444 !important; }
 
   iframe { display: none; }
 </style>
 </head>
 <body>
 
-<div class="lily lily-tl">⚜️</div>
-<div class="lily lily-tr">⚜️</div>
-<div class="lily lily-bl">⚜️</div>
-<div class="lily lily-br">⚜️</div>
+<div class="letter" id="letterBody">
+  <div class="corner-flower tl"></div>
+  <div class="corner-flower tr"></div>
+  <div class="corner-flower bl"></div>
+  <div class="corner-flower br"></div>
 
-<div class="scene active" id="step1">
-  <div class="letter-container">
+  <div class="scene active" id="step1">
     <h1>Dear Ava,<br>Will you be my Valentine?</h1>
-    <div class="btn-container">
-      <button id="yes">YES</button>
-      <button id="no">no</button>
+    <button id="yes">YES</button>
+    <button id="no">no</button>
+  </div>
+
+  <div class="scene" id="step2">
+    <h1>Wait...<br>Are you 100% sure? 🥰</h1>
+    <button id="yesAgain">YES, I AM SURE!</button>
+  </div>
+
+  <div class="scene" id="yesFinal">
+    <h1 style="font-size: 4rem;">I love you baby ❤️</h1>
+    <div class="cats-box">
+      <div class="cat left">🐱</div>
+      <div class="cat right">🐱</div>
     </div>
   </div>
+
+  <div class="wax-stamp">A</div>
 </div>
 
-<div class="scene" id="step2">
-  <div class="letter-container">
-    <h1>Wait...<br>Are you 100% sure? 🥰</h1>
-    <button id="yesAgain">I AM SURE!</button>
-  </div>
-</div>
-
-<div class="scene" id="yesFinal">
-  <h1 style="color: #ff69b4;">I love you baby ❤️</h1>
-  <div class="cats-container">
-    <div class="cat left">🐱</div>
-    <div class="cat right">🐱</div>
-  </div>
-  <div class="heart">❤️</div>
-</div>
-
-<div class="scene" id="noScene">
-  <h1>⛈️</h1>
-  <p>It's a dark day...</p>
+<div class="stormy-bg" id="stormContainer">
+  <h1 style="color: #333; font-size: 10rem;">⛈️</h1>
 </div>
 
 <div id="music-box"></div>
@@ -168,7 +182,7 @@
   const ivyMusic = "https://www.youtube.com/embed/MAJPYBN7LRU?autoplay=1";
   const stormSound = "https://www.youtube.com/embed/mPZkdNF60m0?autoplay=1";
 
-  // STEP 1 to 2
+  // TRANSITION TO SURE?
   document.getElementById("yes").onclick = () => {
     document.getElementById("step1").classList.remove("active");
     document.getElementById("step2").classList.add("active");
@@ -176,30 +190,44 @@
 
   // FINAL YES
   document.getElementById("yesAgain").onclick = () => {
-    // Start Music
-    musicBox.innerHTML = `<iframe src="${ivyMusic}" allow="autoplay"></iframe>`;
-    
-    // UI Changes
     document.getElementById("step2").classList.remove("active");
     document.getElementById("yesFinal").classList.add("active");
-    document.body.style.background = "#fff0f5"; // Soft pink
     
-    // Show Lilies
-    document.querySelectorAll('.lily').forEach(l => l.style.opacity = '1');
+    // Play Ivy
+    musicBox.innerHTML = `<iframe src="${ivyMusic}" allow="autoplay"></iframe>`;
     
-    // Shake screen
-    document.body.classList.add("apply-shake");
-    setTimeout(() => document.body.classList.remove("apply-shake"), 1000);
+    // Start Screen Shake
+    document.getElementById("letterBody").style.animation = "shake 0.5s infinite";
+    
+    // Start Falling Lilies
+    setInterval(createLily, 300);
   };
 
   // NO BUTTON
   document.getElementById("no").onclick = () => {
-    document.getElementById("step1").classList.remove("active");
-    document.getElementById("noScene").classList.add("active");
-    document.body.classList.add("stormy");
+    document.getElementById("stormContainer").style.display = "flex";
     musicBox.innerHTML = `<iframe src="${stormSound}" allow="autoplay"></iframe>`;
   };
+
+  function createLily() {
+    const lily = document.createElement("img");
+    lily.src = "https://www.transparentpng.com/download/lily/white-lily-transparent-background-4.png";
+    lily.className = "falling-lily";
+    lily.style.left = Math.random() * 100 + "vw";
+    lily.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(lily);
+    setTimeout(() => lily.remove(), 5000);
+  }
 </script>
+
+<style>
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, 1px) rotate(0deg); }
+  }
+</style>
 
 </body>
 </html>
