@@ -17,43 +17,43 @@
     overflow: hidden;
   }
 
-  /* THE LETTER WITH FLORAL WRAP */
+  /* TRUE LETTER SHAPE: Vertical Rectangle */
   .letter {
     background: #fdfaf5;
-    width: 90%;
-    max-width: 1000px;
-    height: 85vh;
-    padding: 40px;
-    box-shadow: 10px 10px 50px rgba(0,0,0,0.2);
+    width: 60%; /* Narrower for portrait look */
+    max-width: 550px;
+    height: 85vh; /* Taller */
+    padding: 60px 40px;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.2);
     position: relative;
     border: 1px solid #d4c5b3;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     z-index: 10;
   }
 
-  /* Floral Border Wrap */
-  .letter::after {
-    content: "";
+  /* BIG FLORAL WRAP - Improved scaling */
+  .floral-wrap {
     position: absolute;
-    inset: -15px;
-    border: 30px solid transparent;
-    border-image: url('https://www.transparentpng.com/download/floral/frame-floral-border-background-png-3.png') 100 stretch;
+    inset: -30px;
+    border: 60px solid transparent;
+    border-image: url('https://www.transparentpng.com/download/floral/frame-floral-border-background-png-3.png') 15% stretch;
     pointer-events: none;
-    opacity: 0.7;
+    opacity: 0.8;
+    z-index: 5;
   }
 
-  /* WAX STAMP (RED) */
+  /* STAMPS */
   .wax-stamp {
     width: 90px;
     height: 90px;
     background: radial-gradient(#c41e3a, #8b0000);
     border-radius: 50%;
     position: absolute;
-    bottom: 30px;
-    right: 50px;
+    bottom: 40px;
+    right: 40px;
     box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
@@ -62,97 +62,107 @@
     color: rgba(255,255,255,0.3);
     transform: rotate(-15deg);
     z-index: 20;
+    border: 2px solid #a00000;
   }
 
-  /* EDMONTON POSTMARK */
   .postmark {
     position: absolute;
-    top: 40px;
-    right: 60px;
-    width: 120px;
-    height: 120px;
-    border: 2px double #8b7d6b;
+    top: 50px;
+    right: 40px;
+    width: 110px;
+    height: 110px;
+    border: 1px dashed #8b7d6b;
     border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: #8b7d6b;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 11px;
     text-transform: uppercase;
-    transform: rotate(10deg);
-    opacity: 0.6;
-    pointer-events: none;
+    transform: rotate(15deg);
+    opacity: 0.5;
   }
 
   .scene { display: none; flex-direction: column; align-items: center; text-align: center; width: 100%; }
   .scene.active { display: flex; }
 
-  h1 { font-size: 3.2rem; color: #444; margin-bottom: 40px; font-style: italic; }
+  h1 { font-size: 2.5rem; color: #444; margin-bottom: 20px; font-style: italic; }
 
-  button {
+  /* YES 4X BIGGER THAN NO */
+  #yes, #yesAgain {
     background: #c41e3a;
     color: white;
-    padding: 25px 90px;
+    padding: 30px 100px;
     font-size: 2.2rem;
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    font-family: 'Playfair Display', serif;
+    margin-bottom: 20px;
   }
 
-  #no { background: none; border: none; color: #bbb; font-size: 0.9rem; text-decoration: underline; padding: 10px; margin-top: 20px;}
+  #no { background: none; border: none; color: #bbb; font-size: 0.7rem; text-decoration: underline; cursor: pointer; }
 
-  /* VECTOR CATS */
+  /* CSS DRAWN CATS - Guaranteed to show */
   .cats-box { 
     position: relative; 
     width: 100%; 
-    height: 150px; 
-    margin-top: 40px;
+    height: 100px; 
+    margin-top: 20px;
   }
 
-  .vector-cat {
-    width: 80px;
-    height: 80px;
+  .cat {
     position: absolute;
-    background: #444; /* Dark grey cats */
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    width: 60px;
+    height: 45px;
+    background: #555; /* Cat Body */
+    border-radius: 50% 50% 20% 20%;
   }
 
-  /* Ears */
-  .vector-cat::before, .vector-cat::after {
+  /* Cat Ears */
+  .cat::before {
+    content: "▲ ▲";
+    position: absolute;
+    top: -15px;
+    left: 5px;
+    font-size: 20px;
+    color: #555;
+    word-spacing: 10px;
+  }
+
+  /* Cat Tail */
+  .cat::after {
     content: "";
     position: absolute;
-    top: -10px;
-    width: 20px;
+    right: -5px;
+    bottom: 0;
+    width: 15px;
     height: 25px;
-    background: #444;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    border: 5px solid #555;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 20px 0 0;
   }
-  .vector-cat::before { left: 5px; }
-  .vector-cat::after { right: 5px; }
 
   .left-cat { left: 0; animation: meetLeft 5s forwards; }
-  .right-cat { right: 0; animation: meetRight 5s forwards; }
+  .right-cat { right: 0; animation: meetRight 5s forwards; transform: scaleX(-1); }
 
-  @keyframes meetLeft { to { left: 42%; } }
-  @keyframes meetRight { to { right: 42%; } }
+  @keyframes meetLeft { to { left: 38%; } }
+  @keyframes meetRight { to { right: 38%; } }
 
-  /* Kiss Heart */
   .kiss-heart {
     position: absolute;
     left: 50%;
-    top: -20px;
+    top: -30px;
     transform: translateX(-50%);
     font-size: 40px;
     opacity: 0;
-    animation: popHeart 0.5s forwards 5s;
+    animation: pop 0.5s forwards 5s;
   }
-  @keyframes popHeart { to { opacity: 1; transform: translateX(-50%) translateY(-20px) scale(1.2); } }
+  @keyframes pop { to { opacity: 1; transform: translateX(-50%) scale(1.3); } }
 
   /* FALLING LILIES */
-  .falling-flower {
+  .falling-lily {
     position: absolute;
     top: -50px;
     font-size: 30px;
@@ -177,10 +187,10 @@
 </head>
 <body>
 
+<div class="floral-wrap"></div>
+
 <div class="letter" id="letterBody">
-  <div class="postmark">
-    Edmonton<br>Feb 2026<br>★★★
-  </div>
+  <div class="postmark">EDMONTON<br>FEB 2026<br>VIA AIR MAIL</div>
 
   <div class="scene active" id="step1">
     <h1>Dear Ava,<br>Will you be my Valentine?</h1>
@@ -194,10 +204,10 @@
   </div>
 
   <div class="scene" id="yesFinal">
-    <h1 style="font-size: 3.5rem;">I love you baby ❤️</h1>
+    <h1 style="font-size: 2.8rem;">I love you baby ❤️</h1>
     <div class="cats-box">
-      <div class="vector-cat left-cat"></div>
-      <div class="vector-cat right-cat"></div>
+      <div class="cat left-cat"></div>
+      <div class="cat right-cat"></div>
       <div class="kiss-heart">❤️</div>
     </div>
   </div>
@@ -225,7 +235,12 @@
     document.getElementById("step2").classList.remove("active");
     document.getElementById("yesFinal").classList.add("active");
     musicBox.innerHTML = `<iframe src="${ivyMusic}" allow="autoplay"></iframe>`;
-    setInterval(createFallingFlower, 300);
+    
+    // Shake screen
+    document.getElementById("letterBody").style.animation = "shake 0.5s";
+    
+    // Falling flowers
+    setInterval(createFlower, 300);
   };
 
   document.getElementById("no").onclick = () => {
@@ -233,17 +248,25 @@
     musicBox.innerHTML = `<iframe src="${stormSound}" allow="autoplay"></iframe>`;
   };
 
-  function createFallingFlower() {
-    const flowers = ["🌸", "💮", "🤍", "⚜️"];
-    const flower = document.createElement("div");
-    flower.className = "falling-flower";
-    flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
-    flower.style.left = Math.random() * 100 + "vw";
-    flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    document.body.appendChild(flower);
-    setTimeout(() => flower.remove(), 5000);
+  function createFlower() {
+    const flowers = ["🌸", "⚜️", "🤍", "💮"];
+    const f = document.createElement("div");
+    f.className = "falling-lily";
+    f.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 5000);
   }
 </script>
+
+<style>
+  @keyframes shake {
+    0% { transform: translate(2px, 2px); }
+    50% { transform: translate(-2px, -2px); }
+    100% { transform: translate(0, 0); }
+  }
+</style>
 </body>
 </html>
 
